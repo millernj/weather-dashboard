@@ -1,3 +1,19 @@
-h2.header {
+div.header h2 {
   margin: 1rem;
+}
+
+div.header  {
+  margin-bottom: 1rem;
+}
+
+.panel {
+  padding-top: 0.5rem;
+}
+
+.main {
+  height: 100%;
+}
+
+.current-stats {
+  margin-bottom: 1rem;
 }

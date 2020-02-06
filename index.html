@@ -18,8 +18,8 @@
     <div class="row bg-dark">
       <h2 class="col header text-light text-center">Weather Dashboard</h2>
     </div>
-    <div class="row">
-      <div class="col-4 bg-light">
+    <div class="row main">
+      <div class="col-4 bg-light panel">
         <form id="search-bar" class="container">
           <label for="search-city">Search for a City:</label>
           <div class="input-group mb-3">
@@ -32,6 +32,35 @@
           </div>
         </form>
         <ul id="search-history" class="list-group"></ul>
+      </div>
+      <div class="col-8 panel">
+        <div class="card current-stats">
+          <div class="card-body">
+            <h3 class="card-title">
+              <span id="current-city">Bujumbura</span>
+              <span id="current-date">(02/06/2020)</span>
+              <span id="current-weather-icon">
+                <img src="http://openweathermap.org/img/wn/10d.png">
+              </span>
+            </h3>
+            <h6>Temperature: 
+              <span id="current-temp">288.15 K</span>
+            </h6>
+            <h6>Humidity: 
+              <span id="current-humidity">93%</span>
+            </h6>
+            <h6>Wind Speed: 
+              <span id="current-windspeed">1.48 MPH</span>
+            </h6>
+            <!-- uv need to change background color at various levels of danger -->
+            <h6>UV Index: 
+              <span id="current-uv">9.47</span>
+            </h6>
+          </div>
+        </div>
+        <h5>5-Day Forecast: </h5>
+        <ul id="5-day-forecast" class="row">
+        </ul>
       </div>
     </div>
   </div>
