@@ -33,28 +33,35 @@
         </form>
         <ul id="search-history" class="list-group"></ul>
       </div>
-      <div class="col-8 panel">
+      <div id="weather-panel" class="col-8 panel hidden">
         <div class="card current-stats">
           <div class="card-body">
             <h3 class="card-title">
-              <span id="current-city">Bujumbura</span>
-              <span id="current-date">(02/06/2020)</span>
+              <span id="current-city"></span>
+              <span id="current-date"></span>
               <span id="current-weather-icon">
                 <img src="http://openweathermap.org/img/wn/10d.png">
               </span>
             </h3>
-            <h6>Temperature: 
-              <span id="current-temp">288.15 K</span>
+            <h6 id="current-temp">
+              Temperature:
+              <span></span>
+              °F
             </h6>
-            <h6>Humidity: 
-              <span id="current-humidity">93%</span>
+            <h6 id="current-humidity">
+              Humidity:
+              <span></span>
+              %
             </h6>
-            <h6>Wind Speed: 
-              <span id="current-windspeed">1.48 MPH</span>
+            <h6 id="current-windspeed">
+              Wind Speed:
+              <span></span>
+              MPH
             </h6>
             <!-- uv need to change background color at various levels of danger -->
-            <h6>UV Index: 
-              <span id="current-uv">9.47</span>
+            <h6 id="current-uv">
+              UV Index:
+              <span></span>
             </h6>
           </div>
         </div>
@@ -64,9 +71,8 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
@@ -74,8 +80,8 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-  <script src="./script.js">
-  </script>
+  <script src="./weather.js"></script>
+  <script src="./script.js"></script>
 </body>
 
 </html>

@@ -17,3 +17,7 @@ div.header  {
 .current-stats {
   margin-bottom: 1rem;
 }
+
+.hidden {
+  display: none;
+}
