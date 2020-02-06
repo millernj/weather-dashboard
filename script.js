@@ -1,20 +1,3 @@
-$('#search-submit').click((event) => {
-  event.preventDefault();
-  const query = $('#search-city').val();
-  getWeatherWithUV({q: query}).then((response) => {
-    renderCurrentWeather(response);
-  })
-  let queries = localStorage.getItem('cities');
-  if (queries) {
-    queries = JSON.parse(queries);
-    queries.push(query);
-    localStorage.setItem('cities', JSON.stringify(queries));
-  } else {
-    localStorage.setItem('cities', JSON.stringify([query]));
-  }
-
-})
-
 const renderCurrentWeather = (weatherData) => {
 
   const panelElement = $('#weather-panel');
@@ -57,6 +40,26 @@ const renderCurrentWeather = (weatherData) => {
   }
 }
 
+const renderSearchHistory = () => {
+  const searchHistoryElement = $('#search-history');
+  searchHistoryElement.empty();
+
+  let searchHistory = localStorage.getItem('searches');
+  if (searchHistory) {
+    searchHistory = JSON.parse(searchHistory);
+    for (const search of searchHistory) {
+      const searchItem = $(`<li>${search}</li>`);
+      searchItem.addClass('list-group-item list-group-item-action');
+      searchItem.click(() => {
+        getWeatherWithUV({q: search}).then((response) => {
+          renderCurrentWeather(response);
+        })
+      })
+      searchHistoryElement.prepend(searchItem);
+    }
+  }
+}
+
 const getWeatherIconUrl = (iconCode) => {
   return `http://openweathermap.org/img/wn/${iconCode}.png`;
 }
@@ -85,9 +88,30 @@ const getLocation = () => {
   })
 }
 
+$('#search-submit').click((event) => {
+  event.preventDefault();
+  const query = $('#search-city').val();
+  getWeatherWithUV({q: query}).then((response) => {
+    const { name } = response;
+    let queries = localStorage.getItem('searches');
+    if (queries) {
+      queries = JSON.parse(queries);
+      queries.push(name);
+      if (queries.length > 10) {
+        queries.shift();
+      }
+      localStorage.setItem('searches', JSON.stringify(queries));
+    } else {
+      localStorage.setItem('searches', JSON.stringify([query]));
+    }
+    renderSearchHistory();
+    renderCurrentWeather(response);
+  })
+})
 
 
 $(document).ready(() => {
+  renderSearchHistory();
   getLocation().then(response => {
     const { city } = response;
     getWeatherWithUV({q: city}).then((response) => {
