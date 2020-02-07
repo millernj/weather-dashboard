@@ -2,6 +2,10 @@ div.header h2 {
   margin: 1rem;
 }
 
+.card-body h6 {
+  margin-bottom: 1.4rem;
+}
+
 div.header  {
   margin-bottom: 1rem;
 }
@@ -21,4 +25,15 @@ div.header  {
 
 .hidden {
   display: none;
+}
+
+#current-uv {
+  position: relative;
+}
+
+#current-uv span {
+  color: white;
+  position: absolute;
+  top: -50%; 
+  left: 4.6rem;
 }

@@ -41,16 +41,24 @@ const renderCurrentWeather = (weatherData) => {
 }
 
 const renderSearchHistory = () => {
+
   const searchHistoryElement = $('#search-history');
   searchHistoryElement.empty();
 
   let searchHistory = localStorage.getItem('searches');
+
   if (searchHistory) {
+
     searchHistory = JSON.parse(searchHistory);
+
     for (const search of searchHistory) {
+
       const searchItem = $(`<li>${search}</li>`);
+
       searchItem.addClass('list-group-item list-group-item-action');
+
       searchItem.click(() => {
+
         getWeatherWithUV({q: search}).then((response) => {
           renderCurrentWeather(response);
         })
@@ -60,11 +68,23 @@ const renderSearchHistory = () => {
   }
 }
 
+const renderError = (query) => {
+
+  const errorElement = $(`<div role="alert">Error: City "${query}" not found</div>`);
+  errorElement.addClass('alert alert-danger alert-dismissible fade show');
+  const closeButton = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>')
+  const closeIcon = $('<span aria-hidden="true">&times;</span>');
+  closeButton.append(closeIcon);
+  errorElement.append(closeButton);
+
+  $('#search-area').append(errorElement);
+}
+
 const getWeatherIconUrl = (iconCode) => {
   return `http://openweathermap.org/img/wn/${iconCode}.png`;
 }
 
-const getLocation = () => {
+const getCurrentLocation = () => {
   const apiKey = 'fb15c41db5fee25ded055f95bf360b72';
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -89,33 +109,74 @@ const getLocation = () => {
 }
 
 $('#search-submit').click((event) => {
+
   event.preventDefault();
   const query = $('#search-city').val();
-  getWeatherWithUV({q: query}).then((response) => {
-    const { name } = response;
-    let queries = localStorage.getItem('searches');
-    if (queries) {
-      queries = JSON.parse(queries);
-      queries.push(name);
-      if (queries.length > 10) {
-        queries.shift();
+
+  getWeatherWithUV({q: query})
+    .then((response) => {
+
+      const { name } = response;
+      let queries = localStorage.getItem('searches');
+
+      if (queries) {
+
+        queries = JSON.parse(queries);
+        if (!queries.includes(name)) {
+          queries.push(name);
+        }
+        if (queries.length > 10) {
+          queries.shift();
+        }
+
+        localStorage.setItem('searches', JSON.stringify(queries));
+
+      } else {
+
+        localStorage.setItem('searches', JSON.stringify([query]));
+
       }
-      localStorage.setItem('searches', JSON.stringify(queries));
-    } else {
-      localStorage.setItem('searches', JSON.stringify([query]));
-    }
-    renderSearchHistory();
-    renderCurrentWeather(response);
-  })
+
+      renderSearchHistory();
+      renderCurrentWeather(response);
+    })
+    .catch((error) => {
+
+      console.log(error);
+      renderError(query);
+    })
 })
 
 
 $(document).ready(() => {
+
   renderSearchHistory();
-  getLocation().then(response => {
-    const { city } = response;
-    getWeatherWithUV({q: city}).then((response) => {
+
+  let searchHistory = localStorage.getItem('searches');
+
+  if (searchHistory) {
+
+    searchHistory = JSON.parse(searchHistory);
+    const lastSearchedCity = searchHistory.pop();
+
+    getWeatherWithUV({q: lastSearchedCity}).then((response) => {
       renderCurrentWeather(response);
     })
-  })
+
+    // getForecast({q: lastSearchedCity}).then((response) => {
+    //   console.log(response)
+    // })
+
+  } else {
+
+    getCurrentLocation().then(response => {
+      const { city } = response;
+      getWeatherWithUV({q: city}).then((response) => {
+        renderCurrentWeather(response);
+      })
+      // getForecast({q: lastSearchedCity}).then((response) => {
+      //   console.log(response)
+      // })
+    })
+  }
 })

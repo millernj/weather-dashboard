@@ -19,7 +19,7 @@
       <h2 class="col header text-light text-center">Weather Dashboard</h2>
     </div>
     <div class="row main">
-      <div class="col-4 bg-light bd-sidebar panel">
+      <div id="search-area" class="col-4 bg-light bd-sidebar panel">
         <form id="search-bar" class="container">
           <label for="search-city">Search for a City:</label>
           <div class="input-group mb-3">
@@ -32,6 +32,7 @@
           </div>
         </form>
         <ul id="search-history" class="list-group"></ul>
+        <br>
       </div>
       <div id="weather-panel" class="col-8 panel hidden">
         <div class="card current-stats">
@@ -58,10 +59,9 @@
               <span></span>
               MPH
             </h6>
-            <!-- uv need to change background color at various levels of danger -->
             <h6 id="current-uv">
               UV Index:
-              <span></span>
+              <span class="bg-danger btn"></span>
             </h6>
           </div>
         </div>
