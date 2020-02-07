@@ -50,6 +50,58 @@ const getForecast = (params) => {
   return $.ajax(settings);
 }
 
+const dayMapReducer = (accumulator, currentValue) => {
+  const day = moment.unix(currentValue.dt).format('MM_DD_YYYY');
+  if (day != moment().format('MM_DD_YYYY')){
+    if (accumulator && accumulator.hasOwnProperty(day)) {
+      accumulator[day].push(currentValue);
+    } else {
+      accumulator[day] = [currentValue];
+    }
+  }
+  return accumulator;
+}
+
+const processForecastAverage = (accumulator, currentValue, currentIndex, sourceArray) => {
+  const {
+    main: {
+      temp,
+      humidity
+    },
+    dt,
+    weather
+  } = currentValue;
+  const arrayLength = sourceArray.length;
+  if (currentIndex == Math.floor(arrayLength/2.0)) {
+    const icon = weather[0].icon;
+    accumulator.icon = icon;
+  }
+  if (accumulator.hasOwnProperty('temp') && accumulator.hasOwnProperty('humidity')) {
+    accumulator.temp += parseFloat(temp)/arrayLength;
+    accumulator.humidity += parseFloat(humidity)/arrayLength;
+  } else {
+    accumulator = { 
+      temp: parseFloat(temp)/arrayLength,
+      humidity: parseFloat(humidity)/arrayLength,
+      date: moment.unix(dt).format('MM/DD/YYYY')
+    };
+  }
+  return accumulator;
+}
+
+const processForecasts = (forecast) => {
+  let result = [];
+  const { list: intervals } = forecast;
+  const days = intervals.reduce(dayMapReducer, {});
+  for (let forecasts of Object.values(days)) {
+    let average = forecasts.reduce(processForecastAverage, {});
+    average.temp = average.temp.toFixed(2);
+    average.humidity = average.humidity.toFixed(2);
+    result.push(average);
+  }
+  return result;
+}
+
 const getWeatherWithUV = (params) => {
   return new Promise((resolve, reject) => {
     let result = {};

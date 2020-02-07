@@ -161,11 +161,12 @@ $(document).ready(() => {
 
     getWeatherWithUV({q: lastSearchedCity}).then((response) => {
       renderCurrentWeather(response);
+      getForecast({q: lastSearchedCity}).then((response) => {
+        const forecast = processForecasts(response);
+        console.log(forecast);
+      })
     })
 
-    // getForecast({q: lastSearchedCity}).then((response) => {
-    //   console.log(response)
-    // })
 
   } else {
 
@@ -174,9 +175,10 @@ $(document).ready(() => {
       getWeatherWithUV({q: city}).then((response) => {
         renderCurrentWeather(response);
       })
-      // getForecast({q: lastSearchedCity}).then((response) => {
-      //   console.log(response)
-      // })
+      getForecast({q: lastSearchedCity}).then((response) => {
+        const forecast = processForecasts(response);
+        console.log(forecast);
+      })
     })
   }
 })
