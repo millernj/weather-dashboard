@@ -14,7 +14,7 @@ const getWeather = (params) => {
   const settings = {
     url: uri,
     method: 'GET'
-  }
+  };
 
   return $.ajax(settings);
 }
@@ -26,7 +26,7 @@ const getUVIndex = ({lat, lon}) => {
   const settings = {
     url: uri,
     method: 'GET'
-  }
+  };
 
   return $.ajax(settings);
 }
@@ -129,8 +129,8 @@ const getWeatherWithUV = (params) => {
         }
 
         resolve(result);
-      })
-  })
+      });
+  });
 }
 
 const convertToCelcius = (temperature, inputUnit='K') => {
@@ -150,4 +150,3 @@ const convertToFahrenheit = (temperature, inputUnit='K') => {
       return (parseFloat(temperature) * 9 / 5) + 32;
   }
 }
-

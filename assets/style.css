@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 div.header h2 {
   margin: 1rem;
 }
@@ -6,17 +10,60 @@ div.header h2 {
   margin-bottom: 1.4rem;
 }
 
-div.header  {
-  margin-bottom: 1rem;
+.navbar {
+  position: relative;
+}
+
+.navbar-toggler {
+  position: relative;
+}
+
+.navbar-toggler:focus {
+  outline: 0;
+}
+
+#search-area {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#search-area {
+  width: 15rem;
+}
+
+#weather-panel {
+  min-width: 100vw;
+}
+
+#main.toggled #search-area {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #search-area {
+    margin-left: 0;
+  }
+
+  #weather-panel {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #main.toggled #search-area {
+    margin-left: -15rem;
+  }
+
+  .navbar-toggler {
+    position: absolute;
+  }
 }
 
 .panel {
   padding-top: 0.5rem;
-}
-
-.main {
-  min-height: 95vh;
-  flex-wrap: nowrap;
 }
 
 .current-stats {
@@ -49,4 +96,12 @@ div.header  {
 #forecast-list {
   padding: 0;
   margin: 0;
+}
+
+#main {
+  flex-wrap: nowrap;
+}
+
+#search-history {
+  margin: 0 15px;
 }

@@ -15,11 +15,14 @@
 
 <body>
   <div class="container-fluid">
-    <div class="row bg-dark">
-      <h2 class="col header text-light text-center">Weather Dashboard</h2>
+    <div class="row text-center navbar navbar-dark bg-dark">
+      <h2 class="header text-light mx-auto">Weather Dashboard</h2>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
-    <div class="row main">
-      <div id="search-area" class="col-2 bg-light bd-sidebar panel">
+    <div id="main" class="row">
+      <div id="search-area" class="bg-light border-right panel">
         <form id="search-bar" class="container">
           <label for="search-city">Search for a City:</label>
           <div class="input-group mb-3">
@@ -34,7 +37,7 @@
         <ul id="search-history" class="list-group"></ul>
         <br>
       </div>
-      <div id="weather-panel" class="col-10 panel hidden container">
+      <div id="weather-panel" class="panel hidden container">
         <div class="card current-stats">
           <div class="card-body">
             <h3 class="card-title">
@@ -66,7 +69,7 @@
           </div>
         </div>
         <h5>5-Day Forecast: </h5>
-        <ul id="forecast-list" class="row d-flex justify-content-between">
+        <ul id="forecast-list" class="row justify-content-between">
         </ul>
       </div>
     </div>

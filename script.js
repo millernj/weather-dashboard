@@ -65,10 +65,10 @@ const renderForecast = (forecast) => {
     iconElement.attr('src', getWeatherIconUrl(icon));
     
     const tempElement = $('<p>');
-    tempElement.text(`Temperature: ${convertToFahrenheit(temp).toFixed(2)} °F`)
+    tempElement.text(`Temperature: ${convertToFahrenheit(temp).toFixed(2)} °F`);
 
     const humidityElement = $('<p>');
-    humidityElement.text(`Humidity: ${humidity}%`)
+    humidityElement.text(`Humidity: ${humidity}%`);
 
     body.append(dateElement, iconElement, tempElement, humidityElement);
     weatherCard.append(body);
@@ -113,7 +113,7 @@ const renderError = (query) => {
 
   const errorElement = $(`<div role="alert">Error: City "${query}" not found</div>`);
   errorElement.addClass('alert alert-danger alert-dismissible fade show');
-  const closeButton = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>')
+  const closeButton = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>');
   const closeIcon = $('<span aria-hidden="true">&times;</span>');
   closeButton.append(closeIcon);
   errorElement.append(closeButton);
@@ -126,7 +126,9 @@ const getWeatherIconUrl = (iconCode) => {
 }
 
 const getCurrentLocation = () => {
+
   const apiKey = 'at_J4YUbQJLBo70I6nkFBAPHjSrT95xw';
+
   return new Promise((resolve, reject) => {
     $.ajax({
       url: 'https://jsonip.com/',
@@ -137,7 +139,7 @@ const getCurrentLocation = () => {
         
         return $.ajax({
           url: `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ipAddress=${ip}`
-        })
+        });
       })
       .then(response => {
         resolve(response);
@@ -148,6 +150,11 @@ const getCurrentLocation = () => {
       })
   })
 }
+
+$('.navbar-toggler').click((event) => {
+  event.preventDefault();
+  $('#main').toggleClass('toggled');
+})
 
 $('#search-submit').click((event) => {
 
@@ -207,12 +214,12 @@ $(document).ready(() => {
 
     getWeatherWithUV({q: lastSearchedCity}).then((response) => {
       renderCurrentWeather(response);
-    })
+    });
     
     getForecast({q: lastSearchedCity}).then((response) => {
       const forecast = processForecasts(response);
       renderForecast(forecast);
-    })
+    });
 
 
   } else {
@@ -221,11 +228,11 @@ $(document).ready(() => {
       const { location: { city } } = response;
       getWeatherWithUV({q: city}).then((response) => {
         renderCurrentWeather(response);
-      })
+      });
       getForecast({q: city}).then((response) => {
         const forecast = processForecasts(response);
         renderForecast(forecast);
-      })
-    })
+      });
+    });
   }
 })
