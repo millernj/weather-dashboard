@@ -40,6 +40,39 @@ const renderCurrentWeather = (weatherData) => {
   }
 }
 
+const renderForecast = (forecast) => {
+
+  const forecastList = $('#forecast-list');
+  forecastList.empty();
+
+  for (const day of forecast) {
+    const { date, temp, humidity, icon } = day;
+
+    const weatherCard = $('<li>');
+    weatherCard.addClass('card col-lg bg-primary weather-card');
+
+    const body = $('<div>');
+    body.addClass('card-body');
+
+    const dateElement = $('<h5>');
+    dateElement.text(date);
+    dateElement.addClass('card-title');
+
+    const iconElement = $('<img>');
+    iconElement.attr('src', getWeatherIconUrl(icon));
+    
+    const tempElement = $('<p>');
+    tempElement.text(`Temperature: ${convertToFahrenheit(temp).toFixed(2)} °F`)
+
+    const humidityElement = $('<p>');
+    humidityElement.text(`Humidity: ${humidity}%`)
+
+    body.append(dateElement, iconElement, tempElement, humidityElement);
+    weatherCard.append(body);
+    forecastList.append(weatherCard);
+  }
+}
+
 const renderSearchHistory = () => {
 
   const searchHistoryElement = $('#search-history');
@@ -61,6 +94,10 @@ const renderSearchHistory = () => {
 
         getWeatherWithUV({q: search}).then((response) => {
           renderCurrentWeather(response);
+        })
+        getForecast({q: search}).then((response) => {
+          const forecast = processForecasts(response);
+          renderForecast(forecast);
         })
       })
       searchHistoryElement.prepend(searchItem);
@@ -98,7 +135,6 @@ const getCurrentLocation = () => {
         })
       })
       .then(response => {
-        console.log(response);
         resolve(response);
       })
       .catch(error => {
@@ -139,6 +175,11 @@ $('#search-submit').click((event) => {
 
       renderSearchHistory();
       renderCurrentWeather(response);
+      return getForecast({q: query});
+    })
+    .then((response) => {
+      const forecast = processForecasts(response);
+      renderForecast(forecast);
     })
     .catch((error) => {
 
@@ -161,10 +202,11 @@ $(document).ready(() => {
 
     getWeatherWithUV({q: lastSearchedCity}).then((response) => {
       renderCurrentWeather(response);
-      getForecast({q: lastSearchedCity}).then((response) => {
-        const forecast = processForecasts(response);
-        console.log(forecast);
-      })
+    })
+    
+    getForecast({q: lastSearchedCity}).then((response) => {
+      const forecast = processForecasts(response);
+      renderForecast(forecast);
     })
 
 
@@ -175,9 +217,9 @@ $(document).ready(() => {
       getWeatherWithUV({q: city}).then((response) => {
         renderCurrentWeather(response);
       })
-      getForecast({q: lastSearchedCity}).then((response) => {
+      getForecast({q: city}).then((response) => {
         const forecast = processForecasts(response);
-        console.log(forecast);
+        renderForecast(forecast);
       })
     })
   }
