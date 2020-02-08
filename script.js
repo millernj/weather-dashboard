@@ -126,16 +126,17 @@ const getWeatherIconUrl = (iconCode) => {
 }
 
 const getCurrentLocation = () => {
-  const apiKey = 'fb15c41db5fee25ded055f95bf360b72';
+  const apiKey = 'at_J4YUbQJLBo70I6nkFBAPHjSrT95xw';
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: 'http://jsonip.com/',
+      url: 'https://jsonip.com/',
       method: 'GET'
     })
       .then(response => {
         const { ip } = response;
+        
         return $.ajax({
-          url: `http://api.ipstack.com/${ip}?access_key=${apiKey}`
+          url: `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ipAddress=${ip}`
         })
       })
       .then(response => {
@@ -218,7 +219,7 @@ $(document).ready(() => {
   } else {
 
     getCurrentLocation().then(response => {
-      const { city } = response;
+      const { location: { city } } = response;
       getWeatherWithUV({q: city}).then((response) => {
         renderCurrentWeather(response);
       })
