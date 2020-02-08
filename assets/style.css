@@ -31,6 +31,10 @@ div.header  {
   color: white;
 }
 
+.weather-item {
+  list-style: none;
+}
+
 #current-uv {
   position: relative;
 }

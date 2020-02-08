@@ -48,8 +48,11 @@ const renderForecast = (forecast) => {
   for (const day of forecast) {
     const { date, temp, humidity, icon } = day;
 
-    const weatherCard = $('<li>');
-    weatherCard.addClass('card col-lg bg-primary weather-card');
+    const weatherItem = $('<li>');
+    weatherItem.addClass('weather-item');
+
+    const weatherCard = $('<div>');
+    weatherCard.addClass('card col-sm bg-primary weather-card');
 
     const body = $('<div>');
     body.addClass('card-body');
@@ -69,7 +72,8 @@ const renderForecast = (forecast) => {
 
     body.append(dateElement, iconElement, tempElement, humidityElement);
     weatherCard.append(body);
-    forecastList.append(weatherCard);
+    weatherItem.append(weatherCard);
+    forecastList.append(weatherItem);
   }
 }
 
