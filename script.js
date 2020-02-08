@@ -122,14 +122,14 @@ const renderError = (query) => {
 }
 
 const getWeatherIconUrl = (iconCode) => {
-  return `http://openweathermap.org/img/wn/${iconCode}.png`;
+  return `https://openweathermap.org/img/wn/${iconCode}.png`;
 }
 
 const getCurrentLocation = () => {
   const apiKey = 'fb15c41db5fee25ded055f95bf360b72';
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: 'https://jsonip.com/',
+      url: 'http://jsonip.com/',
       method: 'GET'
     })
       .then(response => {
@@ -139,6 +139,7 @@ const getCurrentLocation = () => {
         })
       })
       .then(response => {
+        console.log(response)
         resolve(response);
       })
       .catch(error => {
