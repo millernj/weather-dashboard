@@ -51,7 +51,7 @@ const getForecast = (params) => {
 }
 
 const dayMapReducer = (accumulator, currentValue) => {
-  const day = moment.unix(currentValue.dt).format('MM_DD_YYYY');
+  const day = moment.unix(currentValue.dt).local().format('MM_DD_YYYY');
   if (day != moment().format('MM_DD_YYYY')){
     if (accumulator && accumulator.hasOwnProperty(day)) {
       accumulator[day].push(currentValue);
@@ -83,7 +83,7 @@ const processForecastAverage = (accumulator, currentValue, currentIndex, sourceA
     accumulator = { 
       temp: parseFloat(temp)/arrayLength,
       humidity: parseFloat(humidity)/arrayLength,
-      date: moment.unix(dt).format('MM/DD/YYYY')
+      date: moment.unix(dt).local().format('MM/DD/YYYY')
     };
   }
   return accumulator;
