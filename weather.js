@@ -106,6 +106,14 @@ const getWeatherWithUV = (params) => {
   return new Promise((resolve, reject) => {
     let result = {};
 
+    const loadingWheel = $('#loading-wheel');
+    loadingWheel.removeClass('hidden');
+
+    const panelElement = $('#weather-panel');
+    if (!panelElement.hasClass('hidden')) {
+      panelElement.addClass('hidden');
+    }
+
     getWeather(params)
       .then((response) => {
 
@@ -119,6 +127,8 @@ const getWeatherWithUV = (params) => {
         const { value: uvi } = response;
         result.uvi = uvi;
 
+        loadingWheel.addClass('hidden');
+        panelElement.removeClass('hidden');
         resolve(result);
       })
       .catch((error) => {

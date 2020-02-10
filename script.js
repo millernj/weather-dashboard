@@ -1,6 +1,6 @@
 const renderCurrentWeather = (weatherData) => {
 
-  const panelElement = $('#weather-panel');
+
 
   const cityElement = $('#current-city');
   const dateElement = $('#current-date');
@@ -34,10 +34,6 @@ const renderCurrentWeather = (weatherData) => {
   windspeedElement.children('span').text(speed);
   uvElement.children('span').text(uvi);
 
-
-  if (panelElement.hasClass('hidden')) {
-    panelElement.removeClass('hidden');
-  }
 }
 
 const renderForecast = (forecast) => {

@@ -22,9 +22,67 @@ div.header h2 {
   outline: 0;
 }
 
+.panel {
+  padding-top: 0.5rem;
+}
+
+.current-stats {
+  margin-bottom: 1rem;
+}
+
+.hidden {
+  display: none!important;
+}
+
+.weather-card {
+  color: white;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.weather-card .card-title, .weather-card p {
+  margin: 0;
+}
+
+.weather-item {
+  list-style: none;
+}
+
+#current-uv {
+  position: relative;
+}
+
+#current-uv span {
+  color: white;
+  position: absolute;
+  top: -50%; 
+  left: 4.6rem;
+}
+
+#loading-wheel {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#forecast-list {
+  padding: 0;
+  margin: 0;
+}
+
+#main {
+  flex-wrap: nowrap;
+}
+
+#search-history {
+  margin: 0 15px;
+}
+
+
 #search-area {
-  min-height: 100vh;
-  margin-left: -15rem;
+  min-height: 93vh;
+  margin-left: -20rem;
   -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
@@ -32,7 +90,7 @@ div.header h2 {
 }
 
 #search-area {
-  width: 15rem;
+  width: 20rem;
 }
 
 #weather-panel {
@@ -54,54 +112,10 @@ div.header h2 {
   }
 
   #main.toggled #search-area {
-    margin-left: -15rem;
+    margin-left: -20rem;
   }
 
   .navbar-toggler {
     position: absolute;
   }
-}
-
-.panel {
-  padding-top: 0.5rem;
-}
-
-.current-stats {
-  margin-bottom: 1rem;
-}
-
-.hidden {
-  display: none;
-}
-
-.weather-card {
-  color: white;
-}
-
-.weather-item {
-  list-style: none;
-}
-
-#current-uv {
-  position: relative;
-}
-
-#current-uv span {
-  color: white;
-  position: absolute;
-  top: -50%; 
-  left: 4.6rem;
-}
-
-#forecast-list {
-  padding: 0;
-  margin: 0;
-}
-
-#main {
-  flex-wrap: nowrap;
-}
-
-#search-history {
-  margin: 0 15px;
 }
