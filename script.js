@@ -1,7 +1,5 @@
 const renderCurrentWeather = (weatherData) => {
 
-
-
   const cityElement = $('#current-city');
   const dateElement = $('#current-date');
   const iconElement = $('#current-weather-icon');
@@ -107,7 +105,7 @@ const renderSearchHistory = () => {
 
 const renderError = (query) => {
 
-  const errorElement = $(`<div role="alert">Error: City "${query}" not found</div>`);
+  const errorElement = $(`<div class="error" role="alert">Error: City "${query}" not found</div>`);
   errorElement.addClass('alert alert-danger alert-dismissible fade show');
   const closeButton = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>');
   const closeIcon = $('<span aria-hidden="true">&times;</span>');
@@ -155,7 +153,7 @@ $('.navbar-toggler').click((event) => {
 $('#search-submit').click((event) => {
 
   event.preventDefault();
-  const query = $('#search-city').val();
+  const query = $('#search-city').val().trim();
 
   getWeatherWithUV({q: query})
     .then((response) => {

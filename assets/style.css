@@ -75,10 +75,9 @@ div.header h2 {
   flex-wrap: nowrap;
 }
 
-#search-history {
+#search-history, .error {
   margin: 0 15px;
 }
-
 
 #search-area {
   min-height: 93vh;
