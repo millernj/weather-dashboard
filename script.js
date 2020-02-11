@@ -32,7 +32,7 @@ const renderCurrentWeather = (weatherData) => {
   tempElement.children('span').text(convertToFahrenheit(temp).toFixed(2));
   humidityElement.children('span').text(humidity);
   windspeedElement.children('span').text(speed);
-  uvElement.children('span').text(uvi);
+  uvElement.children('span').text(uvi || "---");
 
 }
 
