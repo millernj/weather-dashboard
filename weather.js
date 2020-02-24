@@ -120,20 +120,22 @@ const getWeatherWithUV = (params) => {
         const { coord } = response;
         result = response;
 
+
         return getUVIndex(coord);
       })
       .then((response) => {
 
         const { value: uvi } = response;
         result.uvi = uvi;
-
         loadingWheel.addClass('hidden');
         panelElement.removeClass('hidden');
+
         resolve(result);
       })
       .catch((error) => {
         console.error(error);
-
+        loadingWheel.addClass('hidden');
+        panelElement.removeClass('hidden');
         if (result.cod != "200") {
           reject(error);
         }
